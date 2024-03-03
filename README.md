@@ -1,5 +1,7 @@
-# fatec_projeto_integrador_iv
-Projeto Integrador IV
+# Projeto Integrador IV
+
+Projeto integrador do 4º semestre Big Data.
+
 
 Integrantes:
 AUGUSTO PINHO DE FREITAS
