@@ -1,0 +1,17 @@
+from google.colab import auth
+auth.authenticate_user()
+
+# Monte o bucket do GCS
+from google.cloud import storage
+client = storage.Client()
+bucket = client.bucket('seu-bucket-gcs')
+
+# Leia os dados do GCS
+import pandas as pd
+df = pd.read_csv('gs://seu-bucket-gcs/seus-dados.csv')
+
+# Processe os dados (exemplo)
+df['nova_coluna'] = df['coluna_existente'] * 2
+
+# Escreva os dados de volta para o GCS
+df.to_csv('gs://seu-bucket-gcs/dados-processados.csv')

@@ -1,0 +1,1 @@
+Tenho dados do randomAPI que estao sendo tratados e colocados no GCS pelo CloudFunction, com um codigo de python usando pandas. Agora quero tratar outra base do kaggle, porem usando o dataproc e pyspark, me mostre como fazer por favor, me de exemplo do codigo de funciomento tratando e colocando esses dados tratados no bigquery depois.

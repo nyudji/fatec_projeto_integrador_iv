@@ -1,0 +1,22 @@
+    Ingestão de Dados:
+        Seus conjuntos de dados originais são armazenados em algum tipo de armazenamento, como sistemas de arquivos locais ou em nuvem.
+
+    Processamento com Spark:
+        Os dados são processados e transformados usando o Apache Spark. Isso pode ser feito em um cluster Spark, onde o Spark distribui o processamento dos dados em várias máquinas.
+
+    Armazenamento no Hadoop (HDFS):
+        Os dados processados pelo Spark são armazenados no Hadoop Distributed File System (HDFS). Isso proporciona um armazenamento distribuído e tolerante a falhas para os dados processados.
+
+    Migração para o Google Cloud Platform (GCP):
+        Após o armazenamento no HDFS, os dados podem ser migrados para o Google Cloud Platform (GCP) usando ferramentas de transferência de dados, como gsutil ou outras opções disponíveis.
+
+    Armazenamento no Google Cloud Storage (GCS):
+        No GCP, os dados podem ser armazenados no Google Cloud Storage (GCS), que é um serviço de armazenamento em nuvem altamente escalável e durável. Os dados podem ser organizados em buckets e objetos no GCS.
+
+    Processamento Adicional no GCP (Opcional):
+        Depois que os dados estão no GCP, você pode optar por realizar processamento adicional usando serviços como o Google Cloud Dataproc (que oferece um ambiente Spark gerenciado), Google BigQuery para análise de dados, ou outras ferramentas do ecossistema GCP.
+
+    Análise e Visualização:
+        Uma vez que os dados estão armazenados no GCP, você pode realizar análises avançadas e visualizações usando ferramentas como o Google Data Studio, Tableau ou outras ferramentas de análise e visualização de dados.
+
+Essa arquitetura oferece uma maneira escalável e robusta de processar, armazenar e analisar grandes volumes de dados, começando com a ingestão de dados até a análise e visualização no Google Cloud Platform.

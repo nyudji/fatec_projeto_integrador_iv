@@ -1,0 +1,79 @@
+import json
+from functions_framework import http
+import requests
+import pandas as pd
+from google.cloud import storage, bigquery
+import numpy as np
+
+@http
+def random_api(request):
+    """
+    Função HTTP para gerar dados aleatórios do RandomAPI, 
+    salvar no Google Cloud Storage com data e tempo no nome do arquivo.
+    """
+
+    # URL do RandomAPI com o identificador e a chave de acesso
+    url = 'API KEY DO RANDOM API'
+
+    response = requests.get(url)
+    # Verifica se a solicitação foi bem-sucedida
+    if response.status_code == 200:
+        # Extrai os dados da resposta JSON
+        data = response.json()
+        results = data.get('results')
+        print(results)
+        df_vendas_random = pd.DataFrame(results)
+        novos_nomes = {'invoiceID': 'Fatura_Cod', 'date': 'Data', 'items': 'Produto', 'itemsPurchased':'Quantidade','price':'Preco_Unitario','card':'Cartao','country':'Pais'}
+        df_vendas_random = df_vendas_random.rename(columns=novos_nomes)
+        df_vendas_random.drop('Cartao', axis=1, inplace=True)
+        df_vendas_random['Fatura_Cod'] = df_vendas_random['Fatura_Cod'].astype(str)
+        df_vendas_random['Preco_Unitario'] = df_vendas_random['Preco_Unitario'].astype(float)
+        df_vendas_random['Fatura_Total'] = df_vendas_random['Quantidade'] * df_vendas_random['Preco_Unitario']
+        df_vendas_random['Fatura_Total'] = df_vendas_random['Fatura_Total'].round(2)
+        df_vendas_random['Produto'] = df_vendas_random['Produto'].astype(str)
+        df_clientes = pd.read_csv('gs://dl_vendas/dados_brutos/Clientes_bruto.csv')
+        df_dist = pd.read_csv('gs://dl_vendas/dados_brutos/Distribuidores_bruto.csv')
+        df_vendas_random['Cliente_Cod'] = np.random.choice(df_clientes['Cliente_Cod'], size=len(df_vendas_random))
+        df_vendas_random['Dist_Cod'] = np.random.choice(df_dist['Dist_Cod'], size=len(df_vendas_random))
+        nova_ordem = ['Fatura_Cod', 'Produto', 'Quantidade','Preco_Unitario','Fatura_Total','Data','Cliente_Cod','Dist_Cod']
+        df_vendas_random = df_vendas_random[nova_ordem]
+
+        id_projeto = 'ID DO PROJETO GCP'
+        nome_tabela = 'tb_vendas'
+        client = bigquery.Client(project=id_projeto)
+        # Carregue o DataFrame Pandas para a tabela permanente no BigQuery (anexar dados)
+        tabela_ref = client.dataset('db_vendas').table(nome_tabela)
+        job_config = bigquery.LoadJobConfig(
+            write_disposition=bigquery.WriteDisposition.WRITE_APPEND  # Adiciona os dados à tabela existente
+        )
+        job = client.load_table_from_dataframe(df_vendas_random, tabela_ref, job_config=job_config)
+        job.result()  # Aguarda a conclusão do carregamento
+        #Bucket Info
+        bucket_name = 'dl_vendas'
+        storage_client = storage.Client()
+        bucket = storage_client.get_bucket(bucket_name)
+
+        # Cria o nome do arquivo com data e hora
+        from datetime import datetime
+        timestamp = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
+        filename = f'randomapi_{timestamp}.json'
+
+        # Salva os dados como JSON no bucket
+        blob = bucket.blob('dados_gerados/' + filename)
+        blob.upload_from_string(json.dumps(results))
+        filename2 = f'randomapi_tratado.csv'
+        blob2 = bucket.blob('dados_tratados/' + filename2)
+        
+        if blob2.exists():
+            # Se o arquivo já existir, recupera o DataFrame existente
+            existing_df = pd.read_csv(f"gs://{bucket_name}/dados_tratados/{filename2}")
+            # Concatena o novo DataFrame com o existente
+            df_vendas_random = pd.concat([existing_df, df_vendas_random])
+        # Salva o DataFrame como CSV no bucket
+        df_vendas_random.to_csv(f"gs://{bucket_name}/dados_tratados/{filename2}", index=False)
+        return 'Dados gerados e salvos no Google Cloud Storage e no Big Query', 200
+     
+    else:
+        # Se a solicitação falhar, imprime uma mensagem de erro
+        return 'Erro ao obter dados aleatórios:', response.status_code
+    

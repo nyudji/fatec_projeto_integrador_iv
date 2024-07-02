@@ -1,0 +1,3 @@
+Analises https://colab.research.google.com/drive/1iNa66YJlw1QJbQWuWYclPRHOFO6sJuny?usp=sharing
+Machine Learning https://colab.research.google.com/drive/1Pm0abWA6ahTDtxvn16NUW37Psu9vWlxE?usp=sharing
+Tratamento https://colab.research.google.com/drive/1N9NmCcaJ3HH1Ynj18Db8qRJKuK7WDQxP?usp=sharing

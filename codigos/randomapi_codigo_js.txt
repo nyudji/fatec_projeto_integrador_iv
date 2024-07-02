@@ -1,0 +1,98 @@
+var moment = require('moment'); // moment.js to format dates
+var cc = require('keith/Credit Card Generator/2');
+var faker = require('faker');
+
+// User defined code to generate invoice numbers
+function generateInvoiceNumber() {
+    return Math.floor(1000000 + Math.random() * 9000000).toString();
+}
+
+// Gerar número de fatura aleatório
+api.invoiceID = generateInvoiceNumber();
+api.date = moment().format('LLL');
+
+
+// Inline list of products to choose from
+var products = {
+    "BLUE COAT RACK PARIS FASHION": 2229,
+    "SPACEBOY LUNCH BOX": 100,
+    "GIN TONIC ABSOLUT": 243,
+    "SHORT NIKE M": 200,
+    "PINK FLAMINGO BEACH TOWEL": 369,
+    "RAINBOW UNICORN T-SHIRT": 312,
+    "CLASSIC BLACK SUNGLASSES": 371,
+    "CHOCOLATE CHIP COOKIES": 1077,
+    "HANDMADE CERAMIC MUG": 330,
+    "VELVET CUSHION COVER": 945,
+    "ECO-FRIENDLY BAMBOO TOOTHBRUSH": 75,
+    "WATERPROOF PHONE CASE": 85,
+    "TRAVEL ADAPTERS SET": 220,
+    "DIY KITS FOR BEGINNERS": 450,
+    "LUXURY BATH BOMB SET": 33580,
+    "ORGANIC TEA INFUSIONS": 300,
+    "MODERN WALL ART PRINT": 420,
+    "REUSABLE GROCERY BAGS": 199,
+    "MINIATURE TERRARIUM": 279,
+    "DIY CANDLE MAKING KIT": 520,
+    "PERSONALIZED NOTEBOOK": 189,
+    "HANDMADE SOAP BAR": 249,
+    "VINTAGE STYLE WALL CLOCK": 599,
+    "INSTANT CAMERA FILM": 99,
+    "AROMATHERAPY DIFFUSER": 349,
+    "SUSHI MAKING KIT": 699,
+    "CHESS SET": 2799,
+    "BOARD GAMES COLLECTION": 999,
+    "DIGITAL DRAWING TABLET": 899,
+    "WIRELESS EARBUDS": 3249,
+    "SMART WATCH FITNESS TRACKER": 3299,
+    "PORTABLE BLUETOOTH SPEAKER": 1799,
+    "POWER BANK CHARGER": 999,
+    "TRAVEL BACKPACK": 1199,
+    "WATER BOTTLE WITH FILTER": 149,
+    "FOLDABLE SHOPPING BAG": 99,
+    "SUNSCREEN SPF 50": 199,
+    "FIRST AID KIT": 399,
+    "EMERGENCY BLANKET": 299,
+    "HEADPHONES WITH NOISE CANCELLATION": 2599,
+    "HIGH QUALITY COFFEE BEANS": 179,
+    "LUXURY CANDLE SET": 499,
+    "ORGANIC HONEY": 149,
+    "SPICED TEA MIX": 99,
+    "FRESHLY BAKED BREAD": 149,
+    "CHOCOLATE CAKE": 299,
+    "FROZEN YOGURT": 199,
+    "FRUIT SALAD": 129,
+    "VEGAN BURGERS": 349,
+    "PIZZA SLICES": 399
+};
+
+
+// Generate a random fake country
+const knownCountries = [
+  "United States",
+  "Canada",
+  "Mexico",
+  "Brazil",
+  "Argentina",
+  "United Kingdom",
+  "France",
+  "Germany",
+  "Italy",
+  "Spain",
+  "Russia",
+  "China",
+  "India",
+  "Japan",
+  "Australia",
+];
+api.country = faker.random.arrayElement(knownCountries);
+
+// Generate a random item
+var item = faker.random.arrayElement(Object.keys(products));
+var totalPrice = products[item];
+
+// Add details to the API object
+api.items = item;
+api.itemsPurchased = random.numeric(1, 3);
+api.card = cc('VISA').toString().match(/.{4}/g).join('-');
+api.price = `${totalPrice / 100}`;
