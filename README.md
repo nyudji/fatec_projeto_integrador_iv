@@ -33,7 +33,7 @@ Utilizamos a **Google Cloud Platform (GCP)** para gerenciar um fluxo completo de
 ## ⚡ Como Funciona  
 
 1️⃣ O **Google Cloud Scheduler** dispara a geração de vendas fake periodicamente  
-2️⃣ Os dados são coletados via **RandomAPI** e armazenados no **S3**  
+2️⃣ Os dados enviados via **RandomAPI** e dados de outros dois DB são armazenados no **S3**  
 3️⃣ **Cloud Functions** processa os dados usando **PySpark**  
 4️⃣ Após o tratamento, os dados são carregados no **BigQuery**  
 5️⃣ **Análises e previsões** são geradas com base nos dados processados  
