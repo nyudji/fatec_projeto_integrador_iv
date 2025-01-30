@@ -20,13 +20,13 @@ Utilizamos a **Google Cloud Platform (GCP)** para gerenciar um fluxo completo de
 
 ## 🔧 Tecnologias Utilizadas  
 
-📌 **Google Cloud Platform (GCP)**  
-📌 **Google Cloud Scheduler** – Orquestração de tarefas  
-📌 **PySpark** – Processamento de grandes volumes de dados  
-📌 **Google Cloud Functions** – Execução serverless  
-📌 **S3** – Storage de dados brutos  
-📌 **BigQuery** – Data Warehouse para análises  
-📌 **RandomAPI** – Simulação de vendas para a base  
+- **Google Cloud Platform (GCP)**  
+- **Google Cloud Scheduler** – Orquestração de tarefas  
+- **PySpark** – Processamento de grandes volumes de dados  
+- **Google Cloud Functions** – Execução serverless  
+- **S3** – Storage de dados brutos  
+- **BigQuery** – Data Warehouse para análises  
+- **RandomAPI** – Simulação de vendas para a base  
 
 ---
 
